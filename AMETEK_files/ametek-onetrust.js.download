@@ -1,0 +1,19 @@
+﻿$(window).on("load", function () {
+    if (window.OneTrust != undefined) {
+        OneTrust.OnConsentChanged(function (e) {
+            $.ajax({
+                url: '/api/Sitecore/OneTrust/SetOneTrustConsentGroup',
+                dataType: 'json',
+                data: { cookieCategory: e.detail.join('|') },
+                cache: false,
+                type: "POST",
+                success: function (response) {
+                    console.log('onetrust consent set');
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        });
+    }
+});
